@@ -1,10 +1,12 @@
-from typing import Sequence;
+from typing import Sequence
 
 
 class CircleIterator:
 
     def __init__(self, sequence: Sequence, length: int):
-        self._seq, self._length, self._pos = sequence, length, 0
+        self._seq = sequence
+        self._length = length
+        self._pos = 0
 
     def __next__(self):
         if self._pos == self._length:
