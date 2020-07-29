@@ -3,7 +3,10 @@ from math import pow, pi
 
 
 class Circle(Polygon):
+
     def __init__(self, radius: int):
+        if not isinstance(radius, int):
+            raise TypeError("Radius have to be an integer")
         self._radius = radius
 
     def area(self):

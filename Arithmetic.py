@@ -11,15 +11,16 @@ class Arithmetic:
         return self._x / self._y
 
     @classmethod
-    def multiply(cls, x):
+    def multiply(cls, x: int):
         return cls.MULTIPLIER * x
 
     @staticmethod
     def operations(is_add: bool, a: int, b: int):
         if is_add:
-            return a + b
+            result = a + b
         else:
-            return b - a
+            result = b - a
+        return result
 
     @property
     def values(self):
@@ -29,17 +30,15 @@ class Arithmetic:
     def values(self, values: tuple):
         if not len(values) == 2:
             raise ValueError("Tuple have to contain 2 args")
-        self._x = values[0]
-        self._y = values[1]
-
+        self.x, self.y = values
 
 if __name__ == "__main__":
     arithmetic = Arithmetic(10, 5)
 
     print(f"Values: {arithmetic.values}")
     print(f"Division: {arithmetic.div()}")
-    print(f"Myltiply: {Arithmetic.multiply(24)}")
-    print(f"Operations(True): {Arithmetic.operations(False, 100, 40)}")
+    print(f"Multiply: {Arithmetic.multiply(24)}")
+    print(f"Operations(False): {Arithmetic.operations(False, 100, 40)}")
     print(f"Operations(True): {arithmetic.operations(True, 100, 40)}")
 
     another_values = (5, 12)

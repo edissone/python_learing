@@ -1,18 +1,15 @@
-import csv, os
+import csv
 from contextlib import contextmanager
 
 
-class CSVReader:
+class CSV():
 
     def __init__(self, path):
         self._file_path = path
+        self._file = open(self._file_path, "a")
 
     def __enter__(self):
-        self._file = open(self._file_path, "r")
-        reader = csv.reader(self._file)
-        for line in reader:
-            print(",".join(line))
-        return f"\nFile readed from {self._file_path}"
+        return self._file
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self._file.close()
@@ -21,27 +18,24 @@ class CSVReader:
 
 
 @contextmanager
-def csv_writer(path, csv_data):
+def csv_d(path):
     file = open(path, "a")
-    writer = csv.writer(file, delimiter=",")
-
-    if os.access(path, os.F_OK):    # if file don't exist - write columns names
-        writer.writerow(csv_data[0])
-
-    for line in csv_data[1:]:
-        writer.writerow(line)
-    yield
+    yield file
     file.close()
 
 
+data = ["book_name,author,genre".split(","),
+        "The Blazing World,Margaret Cavendish,Science Fiction".split(","),
+        "A Game of Thrones,George Martin,Fiction".split(","),
+        ]
+
 if __name__ == "__main__":
-    with CSVReader("books.csv") as csv_r:
-        print(csv_r)
+    with CSV("res/csv/books.csv") as csv_c:
+        writer = csv.writer(csv_c, delimiter=",")
+        for line in data:
+            writer.writerow(line)
 
-    data = ["book_name,author,genre".split(","),
-            "The Blazing World,Margaret Cavendish,Science Fiction".split(","),
-            "A Game of Thrones,George Martin,Fiction".split(","),
-            ]
-
-    with csv_writer("books2.csv", data):
-        print("\nFile modified at books2.csv")
+    with csv_d("res/csv/books2.csv") as csv_def:
+        writer = csv.writer(csv_def, delimiter=",")
+        for line in data:
+            writer.writerow(line)

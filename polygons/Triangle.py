@@ -22,23 +22,24 @@ class Triangle(Polygon):
         return sqrt(result)
 
     @property
-    def type(self):
-        if (self._sides[0] + self._sides[1] + self._sides[2]) / 3 == self._sides[0]:
-            return TriangleType.EQUILATERAL
-        elif pow(self._sides[0], 2) + pow(self._sides[1], 2) == pow(self._sides[2], 2) \
-                or pow(self._sides[1], 2) + pow(self._sides[2], 2) == pow(self._sides[0], 2) \
-                or pow(self._sides[0], 2) + pow(self._sides[2], 2) == pow(self._sides[1], 2):
-            return TriangleType.RECTANGULAR
+    def angle_type(self):
+        a, b, c = self._sides
+        if (a + b + c) / 3 == a:
+            triangle_type = TriangleType.EQUILATERAL
+        elif pow(a, 2) + pow(b, 2) == pow(c, 2) \
+                or pow(b, 2) + pow(c, 2) == pow(a, 2) \
+                or pow(a, 2) + pow(c, 2) == pow(b, 2):
+            triangle_type = TriangleType.RECTANGULAR
         else:
-            return TriangleType.VERSATILE
-
+            triangle_type = TriangleType.VERSATILE
+        return triangle_type
 
 if __name__ == "__main__":
     triangle1_sides = (3, 3, 3)
     triangle1 = Triangle(triangle1_sides)
 
     print(f"Triangle sides: {triangle1.sides}")
-    print(f"Triangle type: {triangle1.type}")
+    print(f"Triangle type: {triangle1.angle_type}")
     print(f"Triangle perimeter: {triangle1.perimeter()}")
     print(f"Triangle area: {triangle1.area()}\n")
 
@@ -46,7 +47,7 @@ if __name__ == "__main__":
     triangle2 = Triangle(triangle2_sides)
 
     print(f"Triangle sides: {triangle2.sides}")
-    print(f"Triangle type: {triangle2.type}")
+    print(f"Triangle type: {triangle2.angle_type}")
     print(f"Triangle perimeter: {triangle2.perimeter()}")
     print(f"Triangle area: {triangle2.area()}\n")
 
@@ -54,6 +55,6 @@ if __name__ == "__main__":
     triangle3 = Triangle(triangle3_sides)
 
     print(f"Triangle sides: {triangle3.sides}")
-    print(f"Triangle type: {triangle3.type}")
+    print(f"Triangle type: {triangle3.angle_type}")
     print(f"Triangle perimeter: {triangle3.perimeter()}")
     print(f"Triangle area: {triangle3.area()}\n")
