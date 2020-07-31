@@ -27,7 +27,7 @@ class Application(ABC):
 
     @property
     def release_date(self):
-        return self._release_date
+        return self._release_date.isoformat()
 
     @release_date.setter
     def release_date(self, value: date):

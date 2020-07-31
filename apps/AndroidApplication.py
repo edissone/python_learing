@@ -1,7 +1,7 @@
 from datetime import date
-from apps import Application
+from apps import Application, JSONSeralizable
 
-class AndroidApplication(Application.Application):
+class AndroidApplication(Application.Application, JSONSeralizable.JSONSerializable):
     __slots__ = '_link', '_android_versions'
 
     def __init__(self, name: str, release_date: date, version: str, android_versions: set):
@@ -33,3 +33,28 @@ class AndroidApplication(Application.Application):
         if not isinstance(value, set):
             raise AttributeError("Invalid attribute")
         self._android_versions = value
+
+    def to_dict(self):
+        result = dict()
+        properties = super().__slots__ + self.__slots__
+        for prop in properties:
+            value = None
+            prop = prop[1:]
+            if isinstance(getattr(self, prop), set):
+                values_set = getattr(self, prop)
+                i = 0
+                values_dict = dict()
+                for value_loop in values_set:
+                    values_dict.update({i: value_loop})
+                    i += 1
+                value = values_dict
+            else:
+                value = getattr(self, prop)
+            result.update({prop: value})
+        return {self.__class__.__name__: result}
+
+    def to_json(self):
+        return super().to_json(self.to_dict())
+
+    def write_to_json(self, path: str):
+        super().write_to_json(self.to_dict(), path)
