@@ -55,6 +55,13 @@ class Application(ABC):
             raise AttributeError("Invalid attribute")
         self._desc = value
 
+    def short_desc(self):
+        result = ""
+        sh_desc = self._desc.split()
+        for line in sh_desc[:50]:
+            result += line
+        return result
+
     def __str__(self):
         return f"Application {self._name} {self._version}, released {self._release_date}"
 
