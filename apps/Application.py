@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
 from datetime import date
-from enum import Enum
 
 
 class Application(ABC):
@@ -62,8 +61,9 @@ class Application(ABC):
     @abstractmethod
     def __repr__(self):
         return f"<{self.__class__.__name__}(name={self._name}," \
-               f" release_date={self._release_date}," \
-               f" version={self._version})>"
+                   f" release_date={self._release_date}," \
+                   f" version={self._version}," \
+                   f" desc={self.desc})>"
 
     def __eq__(self, other):
         if not isinstance(other, Application):
