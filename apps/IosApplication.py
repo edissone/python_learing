@@ -26,8 +26,8 @@ class IOSVersion(Enum):
     def get_from(cls, from_index: int):
         if not isinstance(from_index, int):
             raise AttributeError("Invalid attribute")
-        if not -7 < from_index < 7:
-            raise IndexError("Invalid index, use -> [0:7]")
+        if not -11 < from_index < 11:
+            raise IndexError("Invalid index, use -> [-11:11]")
         return list(cls.__members__.values())[from_index:]
 
 class IosApplication(Application.Application, JSONSeralizable.JSONSerializable):
@@ -44,7 +44,7 @@ class IosApplication(Application.Application, JSONSeralizable.JSONSerializable):
         return f"<{self.__class__.__name__}(name={self._name}," \
                f" release_date={self._release_date}," \
                f" version={self._version}," \
-               f" desc={self._desc}," \
+               f" desc={self._description}," \
                f" link={self._link}," \
                f" ios_versions={self._ios_versions})>"
 

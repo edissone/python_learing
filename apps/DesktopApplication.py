@@ -26,7 +26,7 @@ class DesktopApplication(Application.Application, JSONSeralizable.JSONSerializab
         return f"<{self.__class__.__name__}(name={self._name}," \
                f" release_date={self._release_date}," \
                f" version={self._version}," \
-               f" desc={self._desc}," \
+               f" desc={self._description}," \
                f" platforms={self._platforms})>"
 
     @property

@@ -23,7 +23,7 @@ class AndroidVersion(Enum):
         if not isinstance(from_index, int):
             raise AttributeError("Invalid attribute")
         if not -7 < from_index < 7:
-            raise IndexError("Invalid index, use -> [0:7]")
+            raise IndexError("Invalid index, use -> [-7:7]")
         return list(cls.__members__.values())[from_index:]
 
 
@@ -42,7 +42,7 @@ class AndroidApplication(Application.Application, JSONSeralizable.JSONSerializab
         return f"<{self.__class__.__name__}(name={self._name}," \
                f" release_date={self._release_date}," \
                f" version={self._version}," \
-               f" desc={self._desc}," \
+               f" desc={self._description}," \
                f" link={self._link}," \
                f" android_versions={self._android_versions})>"
 

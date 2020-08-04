@@ -3,7 +3,7 @@ from datetime import date
 
 
 class Application(ABC):
-    __slots__ = ('_name', '_release_date', '_version', '_desc')
+    __slots__ = ('_name', '_release_date', '_version', '_description')
 
     def __init__(self, name: str, release_date: date, version: str):
         if not isinstance(name, str) \
@@ -13,7 +13,7 @@ class Application(ABC):
         self._name = name
         self._release_date = release_date
         self._version = version
-        self._desc = None
+        self._description = None
 
     @property
     def name(self):
@@ -46,18 +46,18 @@ class Application(ABC):
         self._version = value
 
     @property
-    def desc(self):
-        return self._desc
+    def description(self):
+        return self._description
 
-    @desc.setter
-    def desc(self, value: str):
+    @description.setter
+    def description(self, value: str):
         if not isinstance(value, str):
             raise AttributeError("Invalid attribute")
-        self._desc = value
+        self._description = value
 
     def short_desc(self):
         result = ""
-        sh_desc = self._desc.split()
+        sh_desc = self._description.split()
         for line in sh_desc[:50]:
             result += line
         return result
@@ -67,31 +67,22 @@ class Application(ABC):
 
     @abstractmethod
     def __repr__(self):
-        return f"<{self.__class__.__name__}(name={self._name}," \
-                   f" release_date={self._release_date}," \
-                   f" version={self._version}," \
-                   f" desc={self.desc})>"
+        return (
+                f"<{self.__class__.__name__}(name={self._name},"
+                f" release_date={self._release_date},"
+                f" version={self._version},"
+                f" desc={self.description})>"
+                )
 
     def __eq__(self, other):
         if not isinstance(other, Application):
             raise TypeError("Attribute must be the same")
-        if self.release_date == other.release_date:
-            return True
-        else:
-            return False
+        return self.release_date == other.release_date
 
     def __gt__(self, other):
         if not isinstance(other, Application):
             raise TypeError("Attribute must be the same")
-        if self.release_date > other.release_date:
-            return True
-        else:
-            return False
+        return self.release_date > other.release_date
 
     def __lt__(self, other):
-        if not isinstance(other, Application):
-            raise TypeError("Attribute must be the same")
-        if self.release_date < other.release_date:
-            return True
-        else:
-            return False
+        return not self.__gt__(other)
