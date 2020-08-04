@@ -33,28 +33,3 @@ class Triangle(Polygon):
         else:
             triangle_type = TriangleType.VERSATILE
         return triangle_type
-
-if __name__ == "__main__":
-    triangle1_sides = (3, 3, 3)
-    triangle1 = Triangle(triangle1_sides)
-
-    print(f"Triangle sides: {triangle1.sides}")
-    print(f"Triangle type: {triangle1.angle_type}")
-    print(f"Triangle perimeter: {triangle1.perimeter()}")
-    print(f"Triangle area: {triangle1.area()}\n")
-
-    triangle2_sides = (3, 4, 5)
-    triangle2 = Triangle(triangle2_sides)
-
-    print(f"Triangle sides: {triangle2.sides}")
-    print(f"Triangle type: {triangle2.angle_type}")
-    print(f"Triangle perimeter: {triangle2.perimeter()}")
-    print(f"Triangle area: {triangle2.area()}\n")
-
-    triangle3_sides = (2, 4, 2)
-    triangle3 = Triangle(triangle3_sides)
-
-    print(f"Triangle sides: {triangle3.sides}")
-    print(f"Triangle type: {triangle3.angle_type}")
-    print(f"Triangle perimeter: {triangle3.perimeter()}")
-    print(f"Triangle area: {triangle3.area()}\n")

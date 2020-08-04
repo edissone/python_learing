@@ -47,7 +47,6 @@ class DesktopApplication(Application.Application, JSONSeralizable.JSONSerializab
         result = dict()
         properties = super().__slots__ + self.__slots__
         for prop in properties:
-            value = None
             prop = prop[1:]
             if isinstance(getattr(self, prop), list):
                 values_set = getattr(self, prop)

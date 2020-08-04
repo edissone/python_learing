@@ -84,9 +84,3 @@ class IosApplication(Application.Application, JSONSeralizable.JSONSerializable):
 
     def write_to_json(self, path: str):
         super().write_to_json(self.to_dict(), path)
-
-if __name__ == "__main__":
-    ios1 = IosApplication("Test", date.today(), "1.01", IOSVersion.get_from(4))
-    ios2 = IosApplication("Test2", date.today(), "1.02", IOSVersion.get_from(6))
-    print(ios1.to_json())
-    print(ios2.to_json())

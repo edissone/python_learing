@@ -19,3 +19,7 @@ class Polygon(ABC):
     @property
     def sides(self):
         return self._sides
+
+    @sides.setter
+    def sides(self, values: tuple):
+        self._sides = values

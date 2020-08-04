@@ -25,19 +25,3 @@ class Rectangle(Polygon):
             return RectangleType.SQUARE
         else:
             return RectangleType.RECTANGLE
-
-if __name__ == "__main__":
-    rect_sides = (2, 4)
-    rect = Rectangle(rect_sides)
-
-    print(f"Rectangle sides: {rect.sides}")
-    print(f"Rectangle type: {rect.rect_type}")
-    print(f"Rectangle perimeter: {rect.perimeter()}")
-    print(f"Rectangle area: {rect.area()}\n")
-
-    square_sides = (2, 2)
-    square = Rectangle(square_sides)
-    print(f"Square sides: {square.sides}")
-    print(f"Square type: {square.rect_type}")
-    print(f"Square perimeter: {square.perimeter()}")
-    print(f"Square area: {square.area()}")

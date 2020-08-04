@@ -15,10 +15,3 @@ class Circle(Polygon):
     @property
     def radius(self):
         return self._radius
-
-if __name__ == "__main__":
-    circle = Circle(2)
-
-    print(f"Circle radius: {circle.radius}")
-    print(f"Circle area: {circle.area()}")
-
