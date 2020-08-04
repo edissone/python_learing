@@ -1,6 +1,4 @@
 import json
-
-
 class JSONSerializable:
 
     @staticmethod

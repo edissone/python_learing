@@ -1,12 +1,40 @@
 from datetime import date
 from apps import Application, JSONSeralizable
 
+from enum import Enum
+
+class IOSVersion(Enum):
+    IOS_4 = "iOS 4"
+    IOS_5 = "iOS 5"
+    IOS_6 = "iOS 6"
+    IOS_7 = "iOS 7"
+    IOS_8 = "iOS 8"
+    IOS_9 = "iOS 9"
+    IOS_10 = "iOS 10"
+    IOS_11 = "iOS 11"
+    IOS_12 = "iOS 12"
+    IOS_13 = "iOS 13"
+    IOS_14 = "iOS 14"
+
+    def __str__(self):
+        return self.value
+
+    def __repr__(self):
+        return f"{self._name_}={self.value}"
+
+    @classmethod
+    def get_from(cls, from_index: int):
+        if not isinstance(from_index, int):
+            raise AttributeError("Invalid attribute")
+        if not -7 < from_index < 7:
+            raise IndexError("Invalid index, use -> [0:7]")
+        return list(cls.__members__.values())[from_index:]
 
 class IosApplication(Application.Application, JSONSeralizable.JSONSerializable):
     __slots__ = '_link', '_ios_versions'
 
-    def __init__(self, name: str, release_date: date, version: str, ios_versions: set):
-        if not isinstance(ios_versions, set):
+    def __init__(self, name: str, release_date: date, version: str, ios_versions: list):
+        if not isinstance(ios_versions, list):
             raise AttributeError("Invalid attribute")
         super().__init__(name, release_date, version)
         self._ios_versions = ios_versions
@@ -29,8 +57,8 @@ class IosApplication(Application.Application, JSONSeralizable.JSONSerializable):
         return self._ios_versions
 
     @ios_versions.setter
-    def ios_versions(self, value: set):
-        if not isinstance(value, set):
+    def ios_versions(self, value: list):
+        if not isinstance(value, list):
             raise AttributeError("Invalid attribute")
         self._ios_versions = value
 
@@ -38,14 +66,13 @@ class IosApplication(Application.Application, JSONSeralizable.JSONSerializable):
         result = dict()
         properties = super().__slots__ + self.__slots__
         for prop in properties:
-            value = None
             prop = prop[1:]
-            if isinstance(getattr(self, prop), set):
+            if isinstance(getattr(self, prop), list):
                 values_set = getattr(self, prop)
                 i = 0
                 values_dict = dict()
                 for value_loop in values_set:
-                    values_dict.update({i: value_loop})
+                    values_dict.update({i: value_loop.value})
                     i += 1
                 value = values_dict
             else: value = getattr(self, prop)
@@ -58,3 +85,8 @@ class IosApplication(Application.Application, JSONSeralizable.JSONSerializable):
     def write_to_json(self, path: str):
         super().write_to_json(self.to_dict(), path)
 
+if __name__ == "__main__":
+    ios1 = IosApplication("Test", date.today(), "1.01", IOSVersion.get_from(4))
+    ios2 = IosApplication("Test2", date.today(), "1.02", IOSVersion.get_from(6))
+    print(ios1.to_json())
+    print(ios2.to_json())

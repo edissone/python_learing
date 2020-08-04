@@ -1,11 +1,37 @@
 from datetime import date
 from apps import Application, JSONSeralizable
+from enum import Enum
+
+class AndroidVersion(Enum):
+    ANDROID_4_3 = "Jelly Bean 4.3"
+    ANDROID_4_4 = "KitKat 4.4"
+    ANDROID_5_0 = "Lollipop 5.0 "
+    ANDROID_6_0 = "Marshmallow 6.0"
+    ANDROID_7_0 = "Nougat 7.0"
+    ANDROID_8_0 = "Oreo 8.0"
+    ANDROID_9_0 = "Pie 9.0"
+    ANDROID_10_0 = "Android 10"
+
+    def __str__(self):
+        return self.value
+
+    def __repr__(self):
+        return f"{self._name_}={self.value}"
+
+    @classmethod
+    def get_from(cls, from_index: int):
+        if not isinstance(from_index, int):
+            raise AttributeError("Invalid attribute")
+        if not -7 < from_index < 7:
+            raise IndexError("Invalid index, use -> [0:7]")
+        return list(cls.__members__.values())[from_index:]
+
 
 class AndroidApplication(Application.Application, JSONSeralizable.JSONSerializable):
     __slots__ = '_link', '_android_versions'
 
-    def __init__(self, name: str, release_date: date, version: str, android_versions: set):
-        if not isinstance(android_versions, set):
+    def __init__(self, name: str, release_date: date, version: str, android_versions: list):
+        if not isinstance(android_versions, list):
             raise AttributeError("Invalid attribute")
         super().__init__(name, release_date, version)
         self._android_versions = android_versions
@@ -29,8 +55,8 @@ class AndroidApplication(Application.Application, JSONSeralizable.JSONSerializab
         return self._android_versions
 
     @android_versions.setter
-    def android_versions(self, value: set):
-        if not isinstance(value, set):
+    def android_versions(self, value: list):
+        if not isinstance(value, list):
             raise AttributeError("Invalid attribute")
         self._android_versions = value
 
@@ -38,9 +64,8 @@ class AndroidApplication(Application.Application, JSONSeralizable.JSONSerializab
         result = dict()
         properties = super().__slots__ + self.__slots__
         for prop in properties:
-            value = None
             prop = prop[1:]
-            if isinstance(getattr(self, prop), set):
+            if isinstance(getattr(self, prop), list):
                 values_set = getattr(self, prop)
                 i = 0
                 values_dict = dict()

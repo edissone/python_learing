@@ -1,11 +1,23 @@
 from datetime import date
 from apps import Application, JSONSeralizable
+from enum import Enum
+class Platforms(Enum):
+    MACOS = "Mac OS"
+    WIN7 = "Windows 7"
+    WIN10 = "Windows 10"
+
+    def __str__(self):
+        return self.value
+
+    @classmethod
+    def get_all(cls):
+        return list(cls.__members__.values())
 
 class DesktopApplication(Application.Application, JSONSeralizable.JSONSerializable):
-    __slots__ = '_platforms'
+    __slots__ = ('_platforms',)
 
-    def __init__(self, name: str, release_date: date, version: str, platforms: set):
-        if not isinstance(platforms, set):
+    def __init__(self, name: str, release_date: date, version: str, platforms: list):
+        if not isinstance(platforms, list):
             raise AttributeError("Invalid attribute")
         super().__init__(name, release_date, version)
         self._platforms = platforms
@@ -26,8 +38,8 @@ class DesktopApplication(Application.Application, JSONSeralizable.JSONSerializab
         return self._platforms
 
     @platforms.setter
-    def platforms(self, value: set):
-        if not isinstance(value, set):
+    def platforms(self, value: list):
+        if not isinstance(value, list):
             raise AttributeError("Invalid attribute")
         self._platforms = value
 
@@ -37,12 +49,12 @@ class DesktopApplication(Application.Application, JSONSeralizable.JSONSerializab
         for prop in properties:
             value = None
             prop = prop[1:]
-            if isinstance(getattr(self, prop), set):
+            if isinstance(getattr(self, prop), list):
                 values_set = getattr(self, prop)
                 i = 0
                 values_dict = dict()
                 for value_loop in values_set:
-                    values_dict.update({i: value_loop})
+                    values_dict.update({i: value_loop.value})
                     i += 1
                 value = values_dict
             else:
