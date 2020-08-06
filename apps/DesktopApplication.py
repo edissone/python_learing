@@ -43,26 +43,8 @@ class DesktopApplication(Application.Application, JSONSeralizable.JSONSerializab
             raise AttributeError("Invalid attribute")
         self._platforms = value
 
-    def to_dict(self):
-        result = dict()
-        properties = super().__slots__ + self.__slots__
-        for prop in properties:
-            prop = prop[1:]
-            if isinstance(getattr(self, prop), list):
-                values_set = getattr(self, prop)
-                i = 0
-                values_dict = dict()
-                for value_loop in values_set:
-                    values_dict.update({i: value_loop.value})
-                    i += 1
-                value = values_dict
-            else:
-                value = getattr(self, prop)
-            result.update({prop: value})
-        return {self.__class__.__name__: result}
-
     def to_json(self):
-        return super().to_json(self.to_dict())
+        return super().to_json(self, super().__slots__ + self.__slots__)
 
     def write_to_json(self, path: str):
-        super().write_to_json(self.to_dict(), path)
+        super().write_to_json(self, super().__slots__ + self.__slots__, path)
