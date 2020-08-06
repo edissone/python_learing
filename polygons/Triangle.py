@@ -17,7 +17,7 @@ class Triangle(Polygon):
 
     @property
     def area(self):
-        result = p = self.perimeter() / 2
+        result = p = self.perimeter / 2
         for side in self._sides:
             result *= p * side
         return sqrt(result)

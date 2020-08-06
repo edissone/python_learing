@@ -14,7 +14,6 @@ class Polygon(ABC):
         return result
 
     @abstractmethod
-    @property
     def area(self):
         pass  # formula for calculating an arbitrary polygon?
 

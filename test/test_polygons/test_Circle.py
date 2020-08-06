@@ -1,9 +1,17 @@
 from polygons.Circle import Circle
 
-circle = Circle(2)
 
 def test_circle_radius():
+    # setup
+    circle = Circle(2)
+
+    # assertion
     assert circle.radius == 2
 
+
 def test_circle_area():
-    assert round(circle.area()) == 13
+    # setup
+    circle = Circle(2)
+
+    # assertion
+    assert circle.area == 12.566370614359172
