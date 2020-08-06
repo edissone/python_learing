@@ -15,6 +15,7 @@ class Triangle(Polygon):
             raise ValueError("Triangle must take 3 arguments")
         super().__init__(sides)
 
+    @property
     def area(self):
         result = p = self.perimeter() / 2
         for side in self._sides:

@@ -9,6 +9,7 @@ class Circle(Polygon):
             raise TypeError("Radius have to be an integer")
         self._radius = radius
 
+    @property
     def area(self):
         return pow(self._radius, 2) * pi
 

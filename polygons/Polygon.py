@@ -6,6 +6,7 @@ class Polygon(ABC):
     def __init__(self, sides: tuple):
         self._sides = sides
 
+    @property
     def perimeter(self):
         result = 0
         for side in self._sides:
@@ -13,6 +14,7 @@ class Polygon(ABC):
         return result
 
     @abstractmethod
+    @property
     def area(self):
         pass  # formula for calculating an arbitrary polygon?
 

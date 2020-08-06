@@ -13,6 +13,7 @@ class Rectangle(Polygon):
             raise ValueError("Rectangle must take 2 arguments")
         super().__init__(sides)
 
+    @property
     def area(self):
         result = 1
         for side in self._sides:
