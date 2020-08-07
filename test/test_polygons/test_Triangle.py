@@ -1,4 +1,4 @@
-from polygons.Triangle import *
+from src.polygons.Triangle import *
 
 
 def test_versatile_triangle_sides():

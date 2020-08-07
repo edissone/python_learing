@@ -1,4 +1,4 @@
-from polygons.Circle import Circle
+from src.polygons.Circle import Circle
 
 
 def test_circle_radius():

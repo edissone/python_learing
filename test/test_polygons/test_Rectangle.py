@@ -1,4 +1,4 @@
-from polygons.Rectangle import *
+from src.polygons.Rectangle import *
 
 def test_rectangle_sides():
     # setup

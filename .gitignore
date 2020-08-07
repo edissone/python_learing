@@ -4,4 +4,5 @@ vnv/
 .DS_Store
 test/test_polygons/__pycache__/
 test/test_applications/__pycache__/
-apps/exceptions/__pycache__/
+src/apps/exceptions/__pycache__/
+src/apps/.pytest_cache/

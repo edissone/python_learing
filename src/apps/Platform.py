@@ -1,4 +1,4 @@
-from apps.JSONSeralizable import JSONSerializable
+from src.apps.JSONSeralizable import JSONSerializable
 
 class Platform(JSONSerializable):
     __slots__ = "_name", "_bit_base", "_device"
