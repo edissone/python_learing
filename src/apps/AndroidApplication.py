@@ -1,40 +1,19 @@
 from datetime import date
-from src.apps import Application, JSONSeralizable
-from enum import Enum
+from src.apps.Application import Application
+from src.apps.JSONSeralizable import JSONSerializable
+from src.apps.Platform import Platform
+from src.apps.exceptions.PlatformError import PlatformError
 
-class AndroidVersion(Enum):
-    ANDROID_4_3 = "Jelly Bean 4.3"
-    ANDROID_4_4 = "KitKat 4.4"
-    ANDROID_5_0 = "Lollipop 5.0 "
-    ANDROID_6_0 = "Marshmallow 6.0"
-    ANDROID_7_0 = "Nougat 7.0"
-    ANDROID_8_0 = "Oreo 8.0"
-    ANDROID_9_0 = "Pie 9.0"
-    ANDROID_10_0 = "Android 10"
+class AndroidApplication(Application, JSONSerializable):
+    __slots__ = '_link', '_platform'
 
-    def __str__(self):
-        return self.value
-
-    def __repr__(self):
-        return f"{self._name_}={self.value}"
-
-    @classmethod
-    def get_from(cls, from_index: int):
-        if not isinstance(from_index, int):
+    def __init__(self, name: str, release_date: date, version: str, platform: Platform):
+        if not isinstance(platform, Platform):
             raise AttributeError("Invalid attribute")
-        if not -7 < from_index < 7:
-            raise IndexError("Invalid index, use -> [-7:7]")
-        return list(cls.__members__.values())[from_index:]
-
-
-class AndroidApplication(Application.Application, JSONSeralizable.JSONSerializable):
-    __slots__ = '_link', '_android_versions'
-
-    def __init__(self, name: str, release_date: date, version: str, android_versions: list):
-        if not isinstance(android_versions, list):
-            raise AttributeError("Invalid attribute")
+        if platform.device != "android" and platform.device != "cross-platform":
+            raise PlatformError("This application isn't support this platform")
         super().__init__(name, release_date, version)
-        self._android_versions = android_versions
+        self._platform = platform
         self._link = f"https://play.google.com/store/apps/details?id=com" \
                      f".{self._name.lower()}.{self._version}&android&hl=ru/"
 
@@ -44,21 +23,21 @@ class AndroidApplication(Application.Application, JSONSeralizable.JSONSerializab
                f" version={self._version}," \
                f" desc={self._description}," \
                f" link={self._link}," \
-               f" android_versions={self._android_versions})>"
+               f" platform={self._platform})>"
 
     @property
     def link(self):
         return self.link
 
     @property
-    def android_versions(self):
-        return self._android_versions
+    def platform(self):
+        return self._platform
 
-    @android_versions.setter
-    def android_versions(self, value: list):
+    @platform.setter
+    def platform(self, value: list):
         if not isinstance(value, list):
             raise AttributeError("Invalid attribute")
-        self._android_versions = value
+        self._platform = value
 
     def to_json(self):
         return super().to_json(self, super().__slots__ + self.__slots__)

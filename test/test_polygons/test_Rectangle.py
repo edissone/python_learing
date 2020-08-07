@@ -40,7 +40,7 @@ def test_square_type():
     rect = Rectangle((2, 4))
 
     # assertion
-    assert rect.rect_type == RectangleType.square
+    assert rect.rect_type == RectangleType.SQUARE
 
 def test_square_perimeter():
     # setup

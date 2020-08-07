@@ -24,10 +24,6 @@ class DesktopApplication(Application, JSONSerializable):
                f" platform={self._platform})>"
 
     @property
-    def link(self):
-        return self.link
-
-    @property
     def platform(self):
         return self._platform
 
