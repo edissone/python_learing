@@ -3,3 +3,4 @@ vnv/
 */__pycache__/*
 .DS_Store
 test/test_polygons/__pycache__/
+test/test_applications/__pycache__/
