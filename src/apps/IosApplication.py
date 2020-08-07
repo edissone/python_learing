@@ -1,43 +1,19 @@
 from datetime import date
-from src.apps import Application, JSONSeralizable
+from src.apps.Application import Application
+from src.apps.JSONSeralizable import JSONSerializable
+from src.apps.Platform import Platform
+from src.apps.exceptions.PlatformError import PlatformError
 
-from enum import Enum
+class IosApplication(Application, JSONSerializable):
+    __slots__ = '_link', '_platform'
 
-class IOSVersion(Enum):
-    IOS_4 = "iOS 4"
-    IOS_5 = "iOS 5"
-    IOS_6 = "iOS 6"
-    IOS_7 = "iOS 7"
-    IOS_8 = "iOS 8"
-    IOS_9 = "iOS 9"
-    IOS_10 = "iOS 10"
-    IOS_11 = "iOS 11"
-    IOS_12 = "iOS 12"
-    IOS_13 = "iOS 13"
-    IOS_14 = "iOS 14"
-
-    def __str__(self):
-        return self.value
-
-    def __repr__(self):
-        return f"{self._name_}={self.value}"
-
-    @classmethod
-    def get_from(cls, from_index: int):
-        if not isinstance(from_index, int):
+    def __init__(self, name: str, release_date: date, version: str, platform: Platform):
+        if not isinstance(platform, Platform):
             raise AttributeError("Invalid attribute")
-        if not -11 < from_index < 11:
-            raise IndexError("Invalid index, use -> [-11:11]")
-        return list(cls.__members__.values())[from_index:]
-
-class IosApplication(Application.Application, JSONSeralizable.JSONSerializable):
-    __slots__ = '_link', '_ios_versions'
-
-    def __init__(self, name: str, release_date: date, version: str, ios_versions: list):
-        if not isinstance(ios_versions, list):
-            raise AttributeError("Invalid attribute")
+        if platform.device != "ios" and platform.device != "cross-platform":
+            raise PlatformError("This application isn't support this platform")
         super().__init__(name, release_date, version)
-        self._ios_versions = ios_versions
+        self._ios_versions = platform
         self._link = f"https://apps.apple.com/ru/app/{self._name.lower()}.{self._version}/"
 
     def __repr__(self):
@@ -46,19 +22,19 @@ class IosApplication(Application.Application, JSONSeralizable.JSONSerializable):
                f" version={self._version}," \
                f" desc={self._description}," \
                f" link={self._link}," \
-               f" ios_versions={self._ios_versions})>"
+               f" platform={self._platform})>"
 
     @property
     def link(self):
         return self._link
 
     @property
-    def ios_versions(self):
+    def platform(self):
         return self._ios_versions
 
-    @ios_versions.setter
-    def ios_versions(self, value: list):
-        if not isinstance(value, list):
+    @platform.setter
+    def platform(self, value: Platform):
+        if not isinstance(value, Platform):
             raise AttributeError("Invalid attribute")
         self._ios_versions = value
 

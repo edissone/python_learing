@@ -6,3 +6,5 @@ test/test_polygons/__pycache__/
 test/test_applications/__pycache__/
 src/apps/exceptions/__pycache__/
 src/apps/.pytest_cache/
+src/apps/__pycache__/
+src/polygons/__pycache__/
