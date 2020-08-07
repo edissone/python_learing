@@ -1,6 +1,6 @@
 import pytest
-from apps.Platform import Platform
-from polygons.Circle import Circle
+from src.apps.Platform import Platform
+from src.polygons.Circle import Circle
 
 
 # platform fixtures

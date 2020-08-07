@@ -1,8 +1,8 @@
 from datetime import date
-from apps.Application import Application
-from apps.JSONSeralizable import JSONSerializable
-from apps.Platform import Platform
-from apps.exceptions.PlatformError import PlatformError
+from src.apps.Application import Application
+from src.apps.JSONSeralizable import JSONSerializable
+from src.apps.Platform import Platform
+from src.apps.exceptions.PlatformError import PlatformError
 
 
 class DesktopApplication(Application, JSONSerializable):

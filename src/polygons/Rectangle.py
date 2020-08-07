@@ -1,5 +1,5 @@
 from enum import Enum
-from polygons.Polygon import Polygon
+from src.polygons.Polygon import Polygon
 
 
 class RectangleType(Enum):

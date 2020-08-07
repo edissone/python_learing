@@ -1,5 +1,5 @@
 from datetime import date
-from apps import Application, JSONSeralizable
+from src.apps import Application, JSONSeralizable
 
 from enum import Enum
 
