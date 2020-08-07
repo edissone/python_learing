@@ -4,3 +4,4 @@ vnv/
 .DS_Store
 test/test_polygons/__pycache__/
 test/test_applications/__pycache__/
+apps/exceptions/__pycache__/

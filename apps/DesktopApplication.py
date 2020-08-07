@@ -1,47 +1,41 @@
 from datetime import date
-from apps import Application, JSONSeralizable
-from enum import Enum
-class Platforms(Enum):
-    MACOS = "Mac OS"
-    WIN7 = "Windows 7"
-    WIN10 = "Windows 10"
+from apps.Application import Application
+from apps.JSONSeralizable import JSONSerializable
+from apps.Platform import Platform
+from apps.exceptions.PlatformError import PlatformError
 
-    def __str__(self):
-        return self.value
 
-    @classmethod
-    def get_all(cls):
-        return list(cls.__members__.values())
+class DesktopApplication(Application, JSONSerializable):
+    __slots__ = ('_platform',)
 
-class DesktopApplication(Application.Application, JSONSeralizable.JSONSerializable):
-    __slots__ = ('_platforms',)
-
-    def __init__(self, name: str, release_date: date, version: str, platforms: list):
-        if not isinstance(platforms, list):
+    def __init__(self, name: str, release_date: date, version: str, platform: Platform):
+        if not isinstance(platform, Platform):
             raise AttributeError("Invalid attribute")
+        if platform.device != "desktop" and platform.device != "cross-platform":
+            raise PlatformError("This application isn't support this platform")
         super().__init__(name, release_date, version)
-        self._platforms = platforms
+        self._platform = platform
 
     def __repr__(self):
         return f"<{self.__class__.__name__}(name={self._name}," \
                f" release_date={self._release_date}," \
                f" version={self._version}," \
                f" desc={self._description}," \
-               f" platforms={self._platforms})>"
+               f" platform={self._platform})>"
 
     @property
     def link(self):
         return self.link
 
     @property
-    def platforms(self):
-        return self._platforms
+    def platform(self):
+        return self._platform
 
-    @platforms.setter
-    def platforms(self, value: list):
-        if not isinstance(value, list):
+    @platform.setter
+    def platform(self, value: Platform):
+        if not isinstance(value, Platform):
             raise AttributeError("Invalid attribute")
-        self._platforms = value
+        self._platform = value
 
     def to_json(self):
         return super().to_json(self, super().__slots__ + self.__slots__)

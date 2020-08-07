@@ -1,4 +1,5 @@
 import json
+
 class JSONSerializable:
 
     @classmethod
@@ -15,9 +16,13 @@ class JSONSerializable:
                     values_dict.update({i: value_loop.value})
                     i += 1
                 value = values_dict
+            elif prop == "platform":
+                platform_value = getattr(application, prop)
+                value = cls.to_dict(platform_value, platform_value.fields)
             else:
                 value = getattr(application, prop)
             result.update({prop: value})
+        return result
 
     @classmethod
     def to_json(cls, application, application_slots):
