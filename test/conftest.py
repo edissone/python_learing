@@ -1,11 +1,15 @@
 import pytest
-
-from src.polygons.Triangle import Triangle
+from datetime import date
+# apps
+from src.apps.DesktopApplication import DesktopApplication
 from src.apps.Platform import Platform
+# polygons
+from src.polygons.Triangle import Triangle
 from src.polygons.Circle import Circle
 from src.polygons.Rectangle import Rectangle
 
 
+# apps:
 # platform fixtures
 @pytest.fixture(scope="module")
 def desktop_platform():
@@ -27,6 +31,13 @@ def android_platform():
     return Platform("Android 10", 32, "Android")
 
 
+# desktop application fixtures
+@pytest.fixture(scope="module")
+def desktop_app():
+    return DesktopApplication("Chrome", date.fromisoformat("2001-04-20"), "", desktop_platform)
+
+
+# polygons:
 # circle fixtures
 @pytest.fixture(scope="module")
 def circle():
