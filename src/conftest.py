@@ -33,8 +33,8 @@ def android_platform():
 
 # desktop application fixtures
 @pytest.fixture(scope="module")
-def desktop_app():
-    return DesktopApplication("Chrome", date.fromisoformat("2001-04-20"), "", desktop_platform)
+def desktop_app(desktop_platform):
+    return DesktopApplication("Chrome", date.fromisoformat("2001-04-20"), "2.53", desktop_platform)
 
 
 # polygons:

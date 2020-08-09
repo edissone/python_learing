@@ -12,7 +12,7 @@ class Application(ABC):
             raise AttributeError("Invalid attribute")
         self._name = name
         self._release_date = release_date
-        self._version = version.split(".")
+        self._version = [int(item) for item in version.split(".")]
         self._description = None
 
     @property
@@ -27,7 +27,7 @@ class Application(ABC):
 
     @property
     def release_date(self):
-        return self._release_date.isoformat()
+        return self._release_date
 
     @release_date.setter
     def release_date(self, value: date):
@@ -45,6 +45,7 @@ class Application(ABC):
             raise AttributeError("Invalid attribute")
         if isinstance(value, str):
             value = value.split(".")
+            value = [int(item) for item in value]
         self._version = value
 
     @property
