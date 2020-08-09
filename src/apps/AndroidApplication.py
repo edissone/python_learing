@@ -14,8 +14,11 @@ class AndroidApplication(Application, JSONSerializable):
             raise PlatformError("This application isn't support this platform")
         super().__init__(name, release_date, version)
         self._platform = platform
+        link_name = ""
+        for item in name.split(" "):
+            link_name += f"{item}_"
         self._link = f"https://play.google.com/store/apps/details?id=com" \
-                     f".{self._name.lower()}.{self._version}&android&hl=ru/"
+                     f".{link_name.lower()[:-1]}.{version}&android&hl=ru/"
 
     def __repr__(self):
         return f"<{self.__class__.__name__}(name={self._name}," \
@@ -27,7 +30,7 @@ class AndroidApplication(Application, JSONSerializable):
 
     @property
     def link(self):
-        return self.link
+        return self._link
 
     @property
     def platform(self):

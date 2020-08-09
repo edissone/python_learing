@@ -61,8 +61,8 @@ class Application(ABC):
     def short_desc(self):
         result = ""
         sh_desc = self._description.split()
-        for line in sh_desc[:50]:
-            result += line
+        for string in sh_desc[:50]:
+            result += string.join(" ")
         return result
 
     def __str__(self):

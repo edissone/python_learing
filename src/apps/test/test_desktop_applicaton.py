@@ -17,12 +17,9 @@ def test_desktop_platform(desktop_app, desktop_platform):
     assert desktop_app.platform == desktop_platform
 
 def test_desktop_desc(desktop_app):
-    with open("res/descriptions/desktop_app.txt") as fp:
+    with open("res/descriptions/description.txt") as fp:
         description = fp.read()
     desktop_app.description = description
-
-    short = desktop_app.short_desc()
-    print(short)
 
     assert desktop_app.description == description
 

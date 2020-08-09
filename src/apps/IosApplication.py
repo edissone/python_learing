@@ -14,7 +14,10 @@ class IosApplication(Application, JSONSerializable):
             raise PlatformError("This application isn't support this platform")
         super().__init__(name, release_date, version)
         self._ios_versions = platform
-        self._link = f"https://apps.apple.com/ru/app/{self._name.lower()}.{self._version}/"
+        link_name = ""
+        for item in name.split(" "):
+            link_name += f"{item}_"
+        self._link = f"https://apps.apple.com/ru/app/{link_name.lower()[:-1]}.{version}/"
 
     def __repr__(self):
         return f"<{self.__class__.__name__}(name={self._name}," \
