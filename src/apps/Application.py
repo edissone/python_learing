@@ -71,21 +71,32 @@ class Application(ABC):
     @abstractmethod
     def __repr__(self):
         return (
-                f"<{self.__class__.__name__}(name={self._name},"
-                f" release_date={self._release_date},"
-                f" version={self._version},"
-                f" desc={self.description})>"
-                )
+            f"<{self.__class__.__name__}(name={self._name},"
+            f" release_date={self._release_date},"
+            f" version={self._version},"
+            f" desc={self.description})>"
+        )
 
     def __eq__(self, other):
         if not isinstance(other, Application):
             raise TypeError("Attribute must be the same")
-        return self.release_date == other.release_date
+
+        result = True
+
+        if self.release_date != other.release_date:
+            result = self.version == other.version
+        return result
 
     def __gt__(self, other):
         if not isinstance(other, Application):
             raise TypeError("Attribute must be the same")
-        return self.release_date > other.release_date
+        result = True
+
+        if self.release_date == other.release_date:
+            result = self.version > other.version
+        return result
 
     def __lt__(self, other):
+        if not isinstance(other, Application):
+            raise TypeError("Attribute must be the same")
         return not self.__gt__(other)

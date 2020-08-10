@@ -10,7 +10,7 @@ def test_ios_release_date(ios_app):
 
 
 def test_ios_version(ios_app):
-    assert ios_app.version == [25, 7]
+    assert ios_app.version == [25, 7, 1]
 
 
 def test_desktop_platform(ios_app, ios_platform):
@@ -25,4 +25,4 @@ def test_ios_desc(ios_app):
     assert ios_app.description == description
 
 def test_ios_link(ios_app):
-    assert ios_app.link == "https://apps.apple.com/ru/app/app_store.25.7/"
+    assert ios_app.link == "https://apps.apple.com/ru/app/app_store.25.7.1/"

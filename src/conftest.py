@@ -19,12 +19,12 @@ def desktop_platform():
     return Platform("Windows", 64, "desk")
 
 
-# cross-platform fixture
+# cross-platform fixtures
 @pytest.fixture(scope="module")
 def cross_platform():
     return Platform("Virtual", 32, "")
 
-# ios platform fixture
+# ios platform fixtures
 @pytest.fixture(scope="module")
 def ios_platform():
     return Platform("OS X", 64, "I")
@@ -42,10 +42,20 @@ def desktop_app(desktop_platform):
     return DesktopApplication("Chrome", date.fromisoformat("2001-04-20"), "2.53", desktop_platform)
 
 
+@pytest.fixture(scope="module")
+def desktop_app_eq_version(desktop_platform):
+    return DesktopApplication("Chrome", date.fromisoformat("2007-10-31"), "1.23", desktop_platform)
+
+
 # ios application fixtures
 @pytest.fixture(scope="module")
 def ios_app(ios_platform):
-    return IosApplication("App Store", date.fromisoformat("2007-10-31"), "25.7", ios_platform)
+    return IosApplication("App Store", date.fromisoformat("2007-10-31"), "25.7.1", ios_platform)
+
+
+@pytest.fixture(scope="module")
+def ios_app_eq_version(ios_platform):
+    return IosApplication("App Store", date.fromisoformat("2008-10-31"), "1.23", ios_platform)
 
 
 @pytest.fixture(scope="module")
