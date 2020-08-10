@@ -1,7 +1,7 @@
 from datetime import date
 from src.apps.Application import Application
 from src.apps.JSONSeralizable import JSONSerializable
-from src.apps.Platform import Platform
+from src.apps.Platform import Platform, DEVICE
 from src.apps.exceptions.PlatformError import PlatformError
 
 
@@ -11,7 +11,7 @@ class DesktopApplication(Application, JSONSerializable):
     def __init__(self, name: str, release_date: date, version: str, platform: Platform):
         if not isinstance(platform, Platform):
             raise AttributeError("Invalid attribute")
-        if platform.device != "desktop" and platform.device != "cross-platform":
+        if platform.device != DEVICE.DESKTOP and platform.device != DEVICE.CROSS_PLATFORM:
             raise PlatformError("This application isn't support this platform")
         super().__init__(name, release_date, version)
         self._platform = platform

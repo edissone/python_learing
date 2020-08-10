@@ -2,11 +2,11 @@
 vnv/
 */__pycache__/*
 .DS_Store
-src/polygons/test_polygons/__pycache__/
+src/polygons/test/__pycache__/
 src/apps/test/__pycache__/
 src/apps/exceptions/__pycache__/
 src/apps/.pytest_cache/
 src/apps/__pycache__/
 src/polygons/__pycache__/
-src/polygons/test_polygons/.pytest_cache/
+src/polygons/test/.pytest_cache/
 

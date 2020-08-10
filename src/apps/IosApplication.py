@@ -1,7 +1,7 @@
 from datetime import date
 from src.apps.Application import Application
 from src.apps.JSONSeralizable import JSONSerializable
-from src.apps.Platform import Platform
+from src.apps.Platform import Platform, DEVICE
 from src.apps.exceptions.PlatformError import PlatformError
 
 class IosApplication(Application, JSONSerializable):
@@ -10,7 +10,7 @@ class IosApplication(Application, JSONSerializable):
     def __init__(self, name: str, release_date: date, version: str, platform: Platform):
         if not isinstance(platform, Platform):
             raise AttributeError("Invalid attribute")
-        if platform.device != "ios" and platform.device != "cross-platform":
+        if platform.device != DEVICE.IOS and platform.device != DEVICE.CROSS_PLATFORM:
             raise PlatformError("This application isn't support this platform")
         super().__init__(name, release_date, version)
         self._ios_versions = platform

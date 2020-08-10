@@ -4,7 +4,7 @@ from datetime import date
 from src.apps.DesktopApplication import DesktopApplication
 from src.apps.IosApplication import IosApplication
 from src.apps.AndroidApplication import AndroidApplication
-from src.apps.Platform import Platform
+from src.apps.Platform import Platform, DEVICE
 # polygons
 from src.polygons.Triangle import Triangle
 from src.polygons.Circle import Circle
@@ -16,24 +16,24 @@ from src.polygons.Rectangle import Rectangle
 # desktop platform fixture
 @pytest.fixture(scope="module")
 def desktop_platform():
-    return Platform("Windows", 64, "desk")
+    return Platform("Windows", 64, DEVICE.DESKTOP)
 
 
 # cross-platform fixtures
 @pytest.fixture(scope="module")
 def cross_platform():
-    return Platform("Virtual", 32, "")
+    return Platform("Virtual", 32, DEVICE.CROSS_PLATFORM)
 
 # ios platform fixtures
 @pytest.fixture(scope="module")
 def ios_platform():
-    return Platform("OS X", 64, "I")
+    return Platform("OS X", 64, DEVICE.IOS)
 
 
 # android_platform fixture
 @pytest.fixture(scope="module")
 def android_platform():
-    return Platform("Android 10", 32, "Android")
+    return Platform("Android 10", 32, DEVICE.ANDROID)
 
 
 # desktop application fixtures
