@@ -17,11 +17,9 @@ class Platform(JSONSerializable):
             raise AttributeError("Invalid attribute")
 
         self._name = name
-        if bit_base != 64 and bit_base != 32:
-            print(f"Platform can't be x{bit_base}-based, set default value: 32")
-            self._bit_base = 32
-        else:
-            self._bit_base = bit_base
+        if bit_base not in (32, 64):
+            raise ValueError("Platform can't be x{bit_base}-based, set default value: 32")
+        self._bit_base = bit_base
         self._device = device
 
     def __class__(self):
